@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">MovieApp</string>
+    <string name="search">Search</string>
+    <string name="favorite">Favorite</string>
+    <string name="movie_banner">Movie Banner</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="movie_information">Movie Information</string>
+    <string name="dummy_movie_rating">4.8</string>
+    <string name="rating">rating</string>
+    <string name="trending">Trending</string>
+    <string name="trendingMore">See more</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="popular">Popular</string>
+    <string name="cast">Cast</string>
+    <string name="relatedMovies">Related movies</string>
+    <string name="overview">Overview</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="movieMarkedFavorite">Movie marked as favorite</string>
+    <string name="movieMarkedNotFavorite">Movie marked not favorite</string>
+    <string name="thereIsMoData">There is no data</string>
+</resources>

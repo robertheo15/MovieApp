@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dummyMovieTitle">Lorem ipsum dolor</string>
+    <string name="dummyMovieRating">Movie Rating</string>
+    <string name="movieRatingDummy">4.5</string>
+    <string name="moviePoster">Movie Poster</string>
+    <string name="dummyMovieOverview">Lorem ipsum  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</string>
+    <string name="movieRating">4.5</string>
+    <string name="dummyCast">Lorem ipsum</string>
+    <string name="dummyRole">Test</string>
+    <string name="cast">cast</string>
+</resources>
