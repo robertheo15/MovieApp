@@ -21,9 +21,11 @@ import com.robert.movieapp.utils.setMovieRating
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailActivity : AppCompatActivity() {
+//    , View.OnClickListener {
 
     private lateinit var binding: ActivityDetailBinding
     private val detailViewModel: DetailViewModel by viewModel()
+    private lateinit var movie: Movie
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +38,9 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        val movie: Movie = intent.getParcelableExtra(extraData)!!
-        getDetailMovie(movie)
+        movie = intent.getParcelableExtra(extraData)!!
+        getDetailMovie()
+//        getDetailMovie(movie)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -45,31 +48,58 @@ class DetailActivity : AppCompatActivity() {
         return true
     }
 
-    private fun getDetailMovie(movie: Movie) {
-        val rating = movie.voteAverage.div(2)
-        var statusFavorite = movie.isFavorite
+//    override fun onClick(view: View) {
+//        when (view.id) {
+//            R.id.toggleFavorite -> {
+//                val isChecked = binding.toggleFavorite.isChecked
+//                if (isChecked) {
+//                    detailViewModel.createMovieAsFavorite(movie, isChecked)
+//                } else {
+//                    detailViewModel.deleteMovieFromFavorite(movie.id)
+//                    Toast.makeText(
+//                        this,
+//                        getString(R.string.deleted_from_favorite),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
+//        }
+//    }
 
-        binding.apply {
-            ivMoviePoster.setImageFromUrl(
-                this@DetailActivity,
-                getImageOriginalUrl(movie.posterPath)
-            )
-            tvMovieTitle.text = movie.title
-            ivMovieRating.setMovieRating(rating.toInt())
-            tvMovieRating.text = String.format("%.2f", rating)
-            tvMovieOverview.text = movie.overview
-            setStatusFavorite(statusFavorite)
-            toggleFavorite.setOnClickListener {
-                statusFavorite = !statusFavorite
-                detailViewModel.createMovieAsFavorite(movie, statusFavorite)
+//    private fun getDetailMovie(movie: Movie) {
+    private fun getDetailMovie() {
+        detailViewModel.setMovie(movie)
+
+        detailViewModel.movie.observe(this) { movieLiveData ->
+            val rating = movieLiveData.voteAverage.div(2)
+            var statusFavorite = movieLiveData.isFavorite
+
+            binding.apply {
+                ivMoviePoster.setImageFromUrl(
+                    this@DetailActivity,
+                    getImageOriginalUrl(movieLiveData.posterPath)
+                )
+                tvMovieTitle.text = movieLiveData.title
+                ivMovieRating.setMovieRating(rating.toInt())
+                tvMovieRating.text = String.format("%.2f", rating)
+                tvMovieOverview.text = movieLiveData.overview
                 setStatusFavorite(statusFavorite)
+
+                toggleFavorite.setOnClickListener {
+                    statusFavorite = !statusFavorite
+                    setStatusFavorite(statusFavorite)
+                    detailViewModel.createMovieAsFavorite(movieLiveData, statusFavorite)
+                }
             }
+//            detailViewModel.isFavorite.observe(this) { favorite ->
+//                setStatusFavorite(favorite)
+//            }
+            detailViewModel.snackBarText.observe(this) {
+                showSnackBar(it)
+            }
+            getRecommendationMovies(movieLiveData.id)
+            getMovieCasts(movieLiveData.id)
         }
-        detailViewModel.snackBarText.observe(this) {
-            showSnackBar(it)
-        }
-        getRecommendationMovies(movie.id)
-        getMovieCasts(movie.id)
     }
 
     private fun getRecommendationMovies(id: Int) {
@@ -135,6 +165,8 @@ class DetailActivity : AppCompatActivity() {
 
     private fun showSnackBar(eventMessage: Event<Int>) {
         val message = eventMessage.getContentIfNotHandled() ?: return
+//        val state = message == 1
+//        setStatusFavorite(state)
         Snackbar.make(
             binding.constraintLayoutDetail,
             getString(message),
