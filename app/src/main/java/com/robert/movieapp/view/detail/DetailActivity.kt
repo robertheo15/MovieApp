@@ -21,7 +21,6 @@ import com.robert.movieapp.utils.setMovieRating
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailActivity : AppCompatActivity() {
-//    , View.OnClickListener {
 
     private lateinit var binding: ActivityDetailBinding
     private val detailViewModel: DetailViewModel by viewModel()
@@ -40,7 +39,6 @@ class DetailActivity : AppCompatActivity() {
 
         movie = intent.getParcelableExtra(extraData)!!
         getDetailMovie()
-//        getDetailMovie(movie)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -48,31 +46,34 @@ class DetailActivity : AppCompatActivity() {
         return true
     }
 
-//    override fun onClick(view: View) {
-//        when (view.id) {
-//            R.id.toggleFavorite -> {
-//                val isChecked = binding.toggleFavorite.isChecked
-//                if (isChecked) {
-//                    detailViewModel.createMovieAsFavorite(movie, isChecked)
-//                } else {
-//                    detailViewModel.deleteMovieFromFavorite(movie.id)
-//                    Toast.makeText(
-//                        this,
-//                        getString(R.string.deleted_from_favorite),
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
-//            }
-//        }
-//    }
-
-//    private fun getDetailMovie(movie: Movie) {
     private fun getDetailMovie() {
-        detailViewModel.setMovie(movie)
-
+        if (detailViewModel.hasSetMovie.value == false) detailViewModel.setMovie(movie)
         detailViewModel.movie.observe(this) { movieLiveData ->
+
+            detailViewModel.isFavorite.observe(this@DetailActivity) { isFavorite ->
+                if (isFavorite) {
+                    binding.toggleFavorite.background =
+                        AppCompatResources.getDrawable(
+                            this@DetailActivity,
+                            R.drawable.ic_favorite_24
+                        )
+                } else {
+                    binding.toggleFavorite.background =
+                        AppCompatResources.getDrawable(
+                            this@DetailActivity,
+                            R.drawable.ic_favorite_border_24
+                        )
+                }
+                binding.toggleFavorite.setOnClickListener {
+                    detailViewModel.createMovieAsFavorite(movieLiveData, !isFavorite)
+                }
+            }
+
             val rating = movieLiveData.voteAverage.div(2)
-            var statusFavorite = movieLiveData.isFavorite
+
+            detailViewModel.snackBarText.observe(this) {
+                showSnackBar(it)
+            }
 
             binding.apply {
                 ivMoviePoster.setImageFromUrl(
@@ -83,19 +84,6 @@ class DetailActivity : AppCompatActivity() {
                 ivMovieRating.setMovieRating(rating.toInt())
                 tvMovieRating.text = String.format("%.2f", rating)
                 tvMovieOverview.text = movieLiveData.overview
-                setStatusFavorite(statusFavorite)
-
-                toggleFavorite.setOnClickListener {
-                    statusFavorite = !statusFavorite
-                    setStatusFavorite(statusFavorite)
-                    detailViewModel.createMovieAsFavorite(movieLiveData, statusFavorite)
-                }
-            }
-//            detailViewModel.isFavorite.observe(this) { favorite ->
-//                setStatusFavorite(favorite)
-//            }
-            detailViewModel.snackBarText.observe(this) {
-                showSnackBar(it)
             }
             getRecommendationMovies(movieLiveData.id)
             getMovieCasts(movieLiveData.id)
@@ -165,23 +153,11 @@ class DetailActivity : AppCompatActivity() {
 
     private fun showSnackBar(eventMessage: Event<Int>) {
         val message = eventMessage.getContentIfNotHandled() ?: return
-//        val state = message == 1
-//        setStatusFavorite(state)
         Snackbar.make(
             binding.constraintLayoutDetail,
             getString(message),
             Snackbar.LENGTH_SHORT
         ).show()
-    }
-
-    private fun setStatusFavorite(statusFavorite: Boolean) {
-        if (statusFavorite) {
-            binding.toggleFavorite.background =
-                AppCompatResources.getDrawable(this, R.drawable.ic_favorite_24)
-        } else {
-            binding.toggleFavorite.background =
-                AppCompatResources.getDrawable(this, R.drawable.ic_favorite_border_24)
-        }
     }
 
     companion object {
