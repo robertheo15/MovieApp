@@ -28,8 +28,7 @@
             android:layout_gravity="end|center_vertical"
             android:layout_marginEnd="?android:attr/actionBarSize"
             android:textOff=""
-            android:textOn=""
-            tools:background="@drawable/ic_favorite_border_24" />
+            android:textOn="" />
 
     </androidx.appcompat.widget.Toolbar>
 
