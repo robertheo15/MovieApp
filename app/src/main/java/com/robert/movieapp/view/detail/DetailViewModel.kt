@@ -34,15 +34,10 @@ class DetailViewModel(private val movieUseCase: MovieUseCase) : ViewModel() {
     fun createMovieAsFavorite(movie: Movie, state: Boolean) =
         viewModelScope.launch {
             movieUseCase.createMovieAsFavorite(movie, state)
-            if (state) {
-                _movie.value = movie
-                _isFavorite.value = state
-                _snackBarText.value = Event(R.string.movieMarkedFavorite)
-            } else {
-                _movie.value = movie
-                _isFavorite.value = state
-                _snackBarText.value = Event(R.string.movieMarkedNotFavorite)
-            }
+            _movie.value = movie
+            _isFavorite.value = state
+            _snackBarText.value =
+                Event(if (state) R.string.movieMarkedFavorite else R.string.movieMarkedNotFavorite)
         }
 
     fun findRecommendationMovies(id: Int) =
