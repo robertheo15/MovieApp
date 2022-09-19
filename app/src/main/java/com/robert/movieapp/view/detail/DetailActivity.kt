@@ -37,7 +37,7 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        movie = intent.getParcelableExtra(extraData)!!
+        movie = (intent.getParcelableExtra(extraData) ?: return)
         getDetailMovie()
     }
 

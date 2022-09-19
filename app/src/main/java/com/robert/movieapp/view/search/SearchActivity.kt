@@ -69,7 +69,7 @@ class SearchActivity : AppCompatActivity() {
         return true
     }
 
-    private fun findMovieByQuery(query: String) {
+    internal fun findMovieByQuery(query: String) {
         searchViewModel.findMovieByQuery(query).observe(this) { result ->
             result.onSuccess { movies ->
 

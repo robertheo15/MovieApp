@@ -14,7 +14,6 @@
     <string name="cast">Cast</string>
     <string name="relatedMovies">Related movies</string>
     <string name="overview">Overview</string>
-    <string name="titleFavorite">Favorite</string>
     <string name="movieMarkedFavorite">Movie marked as favorite</string>
     <string name="movieMarkedNotFavorite">Movie marked not favorite</string>
     <string name="thereIsMoData">There is no data</string>

@@ -14,8 +14,8 @@ import com.robert.movieapp.data.Resource
 import com.robert.movieapp.databinding.ActivityMainBinding
 import com.robert.movieapp.ui.MovieHorizontalAdapter
 import com.robert.movieapp.utils.getImageOriginalUrl
-import com.robert.movieapp.utils.setMovieRating
 import com.robert.movieapp.utils.setImageFromUrl
+import com.robert.movieapp.utils.setMovieRating
 import com.robert.movieapp.view.detail.DetailActivity
 import com.robert.movieapp.view.list.ListMovieActivity
 import com.robert.movieapp.view.list.ListMovieActivity.Companion.extraListCategory
@@ -94,10 +94,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     is Resource.Loading -> {
                     }
                     is Resource.Success -> {
-                        val end = movies.data!!.size - 1
+                        val end = (movies.data ?: return@observe).size - 1
                         var random = ((0 until end).random())
                         if (random < 0) random = 0
-                        val movie = movies.data!![random]
+                        val movie = (movies.data ?: return@observe)[random]
                         binding.apply {
                             tvTitle.text = movie.title
                             tvMainRating.text = (movie.voteAverage.div(2)).toString()
