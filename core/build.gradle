@@ -23,6 +23,7 @@ android {
         buildConfigField 'String', 'API_BASE_URL', "\"${properties.getProperty('API_ENDPOINT')}\""
         buildConfigField 'String', 'API_IMG_ENDPOINT', "\"${properties.getProperty('API_IMG_ENDPOINT')}\""
         buildConfigField 'String', 'API_IMG_ORIGINAL_ENDPOINT', "\"${properties.getProperty('API_IMG_ORIGINAL_ENDPOINT')}\""
+        buildConfigField 'String', 'API_HOSTNAME', "\"${properties.getProperty('API_HOSTNAME')}\""
     }
 
     buildTypes {
