@@ -55,13 +55,13 @@ class DetailActivity : AppCompatActivity() {
                     binding.toggleFavorite.background =
                         AppCompatResources.getDrawable(
                             this@DetailActivity,
-                            R.drawable.ic_favorite_24
+                            R.drawable.ic_favorite
                         )
                 } else {
                     binding.toggleFavorite.background =
                         AppCompatResources.getDrawable(
                             this@DetailActivity,
-                            R.drawable.ic_favorite_border_24
+                            R.drawable.ic_favorite_border
                         )
                 }
                 binding.toggleFavorite.setOnClickListener {

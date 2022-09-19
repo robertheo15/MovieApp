@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     tools:ignore="TextContrastCheck"
-                    tools:text="@string/dummy_movie_rating" />
+                    tools:text="@string/dummyMovieRating" />
             </LinearLayout>
 
             <TextView

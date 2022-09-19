@@ -23,15 +23,15 @@
 -keep public class * extends android.app.Activity
 
 # ------ Proguard configuration for Glide
--keep public class * implements com.bumptech.glide.module.GlideModule
--keep class * extends com.bumptech.glide.module.AppGlideModule {
+-keep public class * implements com.bumptech.glide.module.GlideModule.*
+-keep class * extends com.bumptech.glide.module.AppGlideModule.* {
  <init>(...);
 }
 -keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
   **[] $VALUES;
   public *;
 }
--keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder {
+-keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder.* {
   *** rewind();
 }
 
@@ -53,19 +53,19 @@
 
 # Prevent proguard from stripping interface information from TypeAdapter, TypeAdapterFactory,
 # JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)
--keep class * extends com.google.gson.TypeAdapter
--keep class * implements com.google.gson.TypeAdapterFactory
--keep class * implements com.google.gson.JsonSerializer
--keep class * implements com.google.gson.JsonDeserializer
+-keep class * extends com.google.gson.TypeAdapter.*
+-keep class * implements com.google.gson.TypeAdapterFactory.*
+-keep class * implements com.google.gson.JsonSerializer.*
+-keep class * implements com.google.gson.JsonDeserializer.*
 
 # Prevent R8 from leaving Data object members always null
 -keepclassmembers,allowobfuscation class * {
-  @com.google.gson.annotations.SerializedName <fields>;
+  @com.google.gson.annotations.SerializedName.* <fields>;
 }
 
 # Retain generic signatures of TypeToken and its subclasses with R8 version 3.0 and higher.
--keep,allowobfuscation,allowshrinking class com.google.gson.reflect.TypeToken
--keep,allowobfuscation,allowshrinking class * extends com.google.gson.reflect.TypeToken
+-keep,allowobfuscation,allowshrinking class com.google.gson.reflect.TypeToken.*
+-keep,allowobfuscation,allowshrinking class * extends com.google.gson.reflect.TypeToken.*
 
 ##---------------End: proguard configuration for Gson  ----------
 
@@ -103,7 +103,7 @@
 }
 
 # Ignore annotation used for build tooling.
--dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement.*
 
 # Ignore JSR 305 annotations for embedding nullability information.
 -dontwarn javax.annotation.**
@@ -112,7 +112,7 @@
 -dontwarn kotlin.Unit
 
 # Top-level functions that can only be used by Kotlin.
--dontwarn retrofit2.KotlinExtensions
+-dontwarn retrofit2.KotlinExtensions.*
 -dontwarn retrofit2.KotlinExtensions$*
 
 # With R8 full mode, it sees no subtypes of Retrofit interfaces since they are created with a Proxy
@@ -121,8 +121,8 @@
 -keep,allowobfuscation interface <1>
 
 # Keep generic signature of Call, Response (R8 full mode strips signatures from non-kept items).
--keep,allowobfuscation,allowshrinking interface retrofit2.Call
--keep,allowobfuscation,allowshrinking class retrofit2.Response
+-keep,allowobfuscation,allowshrinking interface retrofit2.Call.*
+-keep,allowobfuscation,allowshrinking class retrofit2.Response.*
 
 # With R8 full mode generic signatures are stripped for classes that are not
 # kept. Suspend functions are wrapped in continuations where the type argument

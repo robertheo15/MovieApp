@@ -43,7 +43,7 @@ class SearchActivity : AppCompatActivity() {
         val searchView = searchItem.actionView as SearchView
 
         searchItem.expandActionView()
-        searchView.queryHint = getString(R.string.movie_title)
+        searchView.queryHint = getString(R.string.movieTitle)
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {

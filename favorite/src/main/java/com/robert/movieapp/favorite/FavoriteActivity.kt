@@ -38,7 +38,7 @@ class FavoriteActivity : AppCompatActivity() {
     }
 
     private fun getFavoriteData() {
-        supportActionBar?.title = getString(R.string.title_favorite)
+        supportActionBar?.title = getString(R.string.favorite)
         favoriteViewModel.findFavoriteMovies().observe(this) { movies ->
             if (movies.isEmpty()) {
                 binding.apply {
