@@ -28,8 +28,7 @@
             android:layout_gravity="end|center_vertical"
             android:layout_marginEnd="?android:attr/actionBarSize"
             android:textOff=""
-            android:textOn=""
-            tools:background="@drawable/ic_favorite_border_24" />
+            android:textOn="" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -99,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     tools:ignore="TextContrastCheck"
-                    tools:text="@string/dummy_movie_rating" />
+                    tools:text="@string/dummyMovieRating" />
             </LinearLayout>
 
             <TextView

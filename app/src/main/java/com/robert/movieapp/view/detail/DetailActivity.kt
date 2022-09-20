@@ -24,6 +24,7 @@ class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
     private val detailViewModel: DetailViewModel by viewModel()
+    private lateinit var movie: Movie
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +37,8 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        val movie: Movie = intent.getParcelableExtra(extraData)!!
-        getDetailMovie(movie)
+        movie = (intent.getParcelableExtra(extraData) ?: return)
+        getDetailMovie()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -45,31 +46,48 @@ class DetailActivity : AppCompatActivity() {
         return true
     }
 
-    private fun getDetailMovie(movie: Movie) {
-        val rating = movie.voteAverage.div(2)
-        var statusFavorite = movie.isFavorite
+    private fun getDetailMovie() {
+        if (detailViewModel.hasSetMovie.value == false) detailViewModel.setMovie(movie)
+        detailViewModel.movie.observe(this) { movieLiveData ->
 
-        binding.apply {
-            ivMoviePoster.setImageFromUrl(
-                this@DetailActivity,
-                getImageOriginalUrl(movie.posterPath)
-            )
-            tvMovieTitle.text = movie.title
-            ivMovieRating.setMovieRating(rating.toInt())
-            tvMovieRating.text = String.format("%.2f", rating)
-            tvMovieOverview.text = movie.overview
-            setStatusFavorite(statusFavorite)
-            toggleFavorite.setOnClickListener {
-                statusFavorite = !statusFavorite
-                detailViewModel.createMovieAsFavorite(movie, statusFavorite)
-                setStatusFavorite(statusFavorite)
+            detailViewModel.isFavorite.observe(this@DetailActivity) { isFavorite ->
+                if (isFavorite) {
+                    binding.toggleFavorite.background =
+                        AppCompatResources.getDrawable(
+                            this@DetailActivity,
+                            R.drawable.ic_favorite
+                        )
+                } else {
+                    binding.toggleFavorite.background =
+                        AppCompatResources.getDrawable(
+                            this@DetailActivity,
+                            R.drawable.ic_favorite_border
+                        )
+                }
+                binding.toggleFavorite.setOnClickListener {
+                    detailViewModel.createMovieAsFavorite(movieLiveData, !isFavorite)
+                }
             }
+
+            val rating = movieLiveData.voteAverage.div(2)
+
+            detailViewModel.snackBarText.observe(this) {
+                showSnackBar(it)
+            }
+
+            binding.apply {
+                ivMoviePoster.setImageFromUrl(
+                    this@DetailActivity,
+                    getImageOriginalUrl(movieLiveData.posterPath)
+                )
+                tvMovieTitle.text = movieLiveData.title
+                ivMovieRating.setMovieRating(rating.toInt())
+                tvMovieRating.text = String.format("%.2f", rating)
+                tvMovieOverview.text = movieLiveData.overview
+            }
+            getRecommendationMovies(movieLiveData.id)
+            getMovieCasts(movieLiveData.id)
         }
-        detailViewModel.snackBarText.observe(this) {
-            showSnackBar(it)
-        }
-        getRecommendationMovies(movie.id)
-        getMovieCasts(movie.id)
     }
 
     private fun getRecommendationMovies(id: Int) {
@@ -140,16 +158,6 @@ class DetailActivity : AppCompatActivity() {
             getString(message),
             Snackbar.LENGTH_SHORT
         ).show()
-    }
-
-    private fun setStatusFavorite(statusFavorite: Boolean) {
-        if (statusFavorite) {
-            binding.toggleFavorite.background =
-                AppCompatResources.getDrawable(this, R.drawable.ic_favorite_24)
-        } else {
-            binding.toggleFavorite.background =
-                AppCompatResources.getDrawable(this, R.drawable.ic_favorite_border_24)
-        }
     }
 
     companion object {

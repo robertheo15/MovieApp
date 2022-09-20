@@ -31,7 +31,7 @@ class MovieCastAdapter(private val casts: List<Cast>) :
 
     override fun getItemCount() = casts.size
 
-    inner class ViewHolder(private var binding: ItemMovieCastBinding) :
+    class ViewHolder(private var binding: ItemMovieCastBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(context: Context, cast: Cast) {
