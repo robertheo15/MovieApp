@@ -6,6 +6,8 @@ orbs:
 jobs:
   build:
     executor: android/android
+    before_script:
+      - touch local.properties
     steps:
       - checkout
       - restore_cache:
