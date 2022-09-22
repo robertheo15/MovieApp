@@ -5,4 +5,6 @@
     <color name="grey">#7f7f7f</color>
     <color name="light_grey">#bfbfbf</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background_placeholder">#DDDDDD</color>
+    <color name="view_placeholder">#7F000000</color>
 </resources>

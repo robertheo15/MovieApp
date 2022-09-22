@@ -49,13 +49,26 @@
             <ImageView
                 android:id="@+id/ivMoviePoster"
                 android:layout_width="match_parent"
-                android:layout_height="560dp"
+                android:layout_height="500dp"
                 android:contentDescription="@string/moviePoster"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/sample" />
+                tools:ignore="ImageContrastCheck" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/progressBarMoviePoster"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shimmer_auto_start="true">
+
+                <include layout="@layout/poster_movie_placeholder" />
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
 
             <TextView
                 android:id="@+id/tvMovieTitle"
@@ -90,6 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/moviePoster"
+                    tools:ignore="ImageContrastCheck"
                     tools:src="@drawable/ic_rating_0" />
 
                 <TextView
@@ -162,6 +176,37 @@
                 tools:itemCount="5"
                 tools:listitem="@layout/item_movie_cast" />
 
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/progressBarRvMovieCast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCastTitle"
+                app:shimmer_auto_start="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <include layout="@layout/item_movie_cast_placeholder" />
+                        <include layout="@layout/item_movie_cast_placeholder" />
+                        <include layout="@layout/item_movie_cast_placeholder" />
+                        <include layout="@layout/item_movie_cast_placeholder" />
+                        <include layout="@layout/item_movie_cast_placeholder" />
+                    </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="rvMovieCast,progressBarRvMovieCast" />
+
             <TextView
                 android:id="@+id/tvRecommendationMovies"
                 android:layout_width="wrap_content"
@@ -172,7 +217,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rvMovieCast" />
+                app:layout_constraintTop_toBottomOf="@+id/barrier" />
 
             <TextView
                 android:id="@+id/tvRecommendationMessage"
@@ -191,9 +236,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvRecommendationMovies"
                 tools:itemCount="1"
                 tools:listitem="@layout/item_movie_horizontal" />
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/progressBarRvRecommendationMovies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvRecommendationMovies"
+                app:shimmer_auto_start="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <include layout="@layout/item_movie_horizontal_placeholder" />
+                        <include layout="@layout/item_movie_horizontal_placeholder" />
+                        <include layout="@layout/item_movie_horizontal_placeholder" />
+                        <include layout="@layout/item_movie_horizontal_placeholder" />
+                    </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

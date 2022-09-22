@@ -37,6 +37,8 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        binding.progressBarRvMovieCast.visibility = View.VISIBLE
+        binding.progressBarRvRecommendationMovies.visibility = View.VISIBLE
         movie = (intent.getParcelableExtra(extraData) ?: return)
         getDetailMovie()
     }
@@ -92,6 +94,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun getRecommendationMovies(id: Int) {
         detailViewModel.findRecommendationMovies(id).observe(this) { result ->
+            binding.progressBarRvRecommendationMovies.visibility = View.GONE
             result.onSuccess { movies ->
                 if (movies.isEmpty()) {
                     binding.apply {
@@ -126,6 +129,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun getMovieCasts(id: Int) {
         detailViewModel.findMovieCasts(id).observe(this) { result ->
+            binding.progressBarRvMovieCast.visibility = View.GONE
             result.onSuccess { casts ->
                 if (casts.isEmpty()) {
                     binding.apply {
