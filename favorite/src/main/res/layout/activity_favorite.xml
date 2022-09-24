@@ -32,15 +32,30 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationLottie"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_above="@+id/tvMessage"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarFavorite"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="emptybox.json"
+        app:lottie_loop="true" />
+
     <TextView
         android:id="@+id/tvMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:text="@string/emptyData"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbarFavorite"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintTop_toBottomOf="@+id/animationLottie" />
 </androidx.constraintlayout.widget.ConstraintLayout>

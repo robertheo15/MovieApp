@@ -18,7 +18,7 @@ dependencies {
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
 
     //Koin
-    implementation "io.insert-koin:koin-android:3.2.0"
+    implementation 'io.insert-koin:koin-android:3.2.1'
 
     //testing
     testImplementation 'junit:junit:4.13.2'

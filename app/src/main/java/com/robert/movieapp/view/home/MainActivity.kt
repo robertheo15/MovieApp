@@ -92,8 +92,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             if (movies != null) {
                 when (movies) {
                     is Resource.Loading -> {
+                        binding.progressBarBanner.visibility = View.VISIBLE
                     }
                     is Resource.Success -> {
+                        binding.progressBarBanner.visibility = View.GONE
                         val end = (movies.data ?: return@observe).size - 1
                         var random = ((0 until end).random())
                         if (random < 0) random = 0
@@ -126,8 +128,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             if (movies != null) {
                 when (movies) {
                     is Resource.Loading -> {
+                        binding.progressBarRvTrending.visibility = View.VISIBLE
                     }
                     is Resource.Success -> {
+                        binding.progressBarRvTrending.visibility = View.GONE
+
                         val trendingAdapter = movies.data?.let { MovieHorizontalAdapter(it) }
                         if (trendingAdapter != null) {
                             trendingAdapter.onItemClick = { selectedData ->
@@ -159,8 +164,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             if (movies != null) {
                 when (movies) {
                     is Resource.Loading -> {
+                        binding.progressBarRvPopular.visibility = View.VISIBLE
                     }
                     is Resource.Success -> {
+                        binding.progressBarRvPopular.visibility = View.GONE
                         val popularAdapter = movies.data?.let { MovieHorizontalAdapter(it) }
                         if (popularAdapter != null) {
                             popularAdapter.onItemClick = { selectedData ->
@@ -192,8 +199,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             if (movies != null) {
                 when (movies) {
                     is Resource.Loading -> {
+                        binding.progressBarRvUpComing.visibility = View.VISIBLE
                     }
                     is Resource.Success -> {
+                        binding.progressBarRvUpComing.visibility = View.GONE
                         val upComingAdapter = movies.data?.let { MovieHorizontalAdapter(it) }
                         if (upComingAdapter != null) {
                             upComingAdapter.onItemClick = { selectedData ->

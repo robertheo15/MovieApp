@@ -16,6 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         card_view:cardCornerRadius="8dp">
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -25,52 +26,47 @@
                 android:id="@+id/ivMoviePoster"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
+                android:background="@color/background_placeholder"
                 android:contentDescription="@string/moviePoster"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:background="@color/background_placeholder" />
+                tools:ignore="ImageContrastCheck" />
+
+            <Space
+                android:id="@+id/top_space"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:layout_constraintBottom_toTopOf="@+id/tvMovieItemTitle"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/tvMovieItemTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="150dp"
-                android:background="@color/black"
-                android:ellipsize="end"
-                android:maxLines="2"
-                android:textColor="@color/white"
+                android:background="@color/view_placeholder"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/dummyMovieTitle" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvMovieItemRating"
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:background="@color/view_placeholder"
                 android:gravity="center_vertical"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ivMovieRating"
-                app:layout_constraintTop_toBottomOf="@+id/tvMovieItemTitle"
-                tools:ignore="TextContrastCheck"
-                tools:text="@string/dummyMovieRating" />
-
-            <ImageView
-                android:id="@+id/ivMovieRating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:contentDescription="@string/movieRating"
-                app:layout_constraintEnd_toStartOf="@+id/tvMovieItemRating"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvMovieItemTitle"
-                tools:src="@drawable/ic_rating_0" />
+                tools:ignore="TextContrastCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
