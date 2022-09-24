@@ -44,6 +44,7 @@ class FavoriteActivity : AppCompatActivity() {
                 binding.apply {
                     rvFavorite.visibility = View.GONE
                     tvMessage.visibility = View.VISIBLE
+                    animationLottie.visibility = View.VISIBLE
                 }
             } else {
                 val adapter = MovieVerticalAdapter(movies)
