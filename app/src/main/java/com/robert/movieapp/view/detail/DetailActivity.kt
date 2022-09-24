@@ -89,6 +89,7 @@ class DetailActivity : AppCompatActivity() {
             }
             getRecommendationMovies(movieLiveData.id)
             getMovieCasts(movieLiveData.id)
+            binding.progressBarMoviePoster.visibility = View.GONE
         }
     }
 
