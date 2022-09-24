@@ -4,7 +4,7 @@
 
 ## App Description
 
-Movie Application that you can use to checking what currently movies are playing at theater, popular movies, trending movies, and upcoming movies. You also can search what movies you want to check and then when you tap one of the listm you can see detail page which contain movie poster, description, casts, and related movies.
+Movie Application that you can use to check what currently movies are playing at theaters, popular movies, trending movies, and upcoming movies. You also can search what movies you want to check and then when you tap one of the lists you can see a detail page which contains movie poster, description, casts, and related movies.
 
 
 ## Development
